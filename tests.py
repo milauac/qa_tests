@@ -25,12 +25,6 @@ EMPTY_INPUT_TOOLTIP = 'Please fill out this field.'
 
 def test_add_question():
     default = get_number_of_questions()
-
-    # below check can be uncommented after fixing only space case
-    # create_question(" ", " ")
-    # assert get_number_of_questions() == default, \
-    #     "Space shouldn't be count as provided answer/question"
-
     create_question(QUESTION_EXAMPLE, ANSWER_EXAMPLE)
     assert get_number_of_questions() == (default + 1), \
         f"Here have to be {get_number_of_questions()} questions in a list"
@@ -56,18 +50,25 @@ def test_add_question_with_empty_fields():
     create_question("", "")
     assert get_number_of_questions() == default, \
         "Shouldn't be possible to create question without question itself and answer"
+    
+    # below check can be uncommented after fixing only space case
+    # create_question(" ", " ")
+    # assert get_number_of_questions() == default, \
+    #     "Space shouldn't be count as provided answer/question"
 
 
 def test_remove_all_questions():
     click_remove_questions_btn()
 
-    assert get_number_of_questions() == 0
+    assert get_number_of_questions() == 0, \
+        "Questions list isn't removed"
 
     for item in QUESTIONS_ANSWER_SET:
         create_question(item[0], item[1])
     click_remove_questions_btn()
 
-    assert get_number_of_questions() == 0
+    assert get_number_of_questions() == 0, \
+        "Questions list isn't removed"
 
 
 def test_sorting_and_answers_displaying():
